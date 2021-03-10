@@ -1,0 +1,3 @@
+[submodule "Assets/MemoTools-unity"]
+	path = Assets/MemoTools-unity
+	url = https://github.com/MarcoKouyate/MemoTools-unity.git
