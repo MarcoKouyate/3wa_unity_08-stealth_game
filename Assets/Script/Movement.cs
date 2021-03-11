@@ -11,7 +11,7 @@ namespace Stealth
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _camera = Camera.main;
+            _cameraTransform = Camera.main.transform;
             _transform = transform;
         }
         private void FixedUpdate()
@@ -19,7 +19,7 @@ namespace Stealth
             _direction.y = _height;
             _rigidbody.velocity = _direction * Time.fixedDeltaTime  * 100;
             
-            if(_direction.x > 0 || _direction.z > 0)
+            if(InputController.Instance.IsAxisActive(_direction.x) || InputController.Instance.IsAxisActive(_direction.z))
             {
                 LookTowardsCamera();
             }
@@ -39,7 +39,7 @@ namespace Stealth
 
         private void LookTowardsCamera()
         {
-            Vector3 lookRotation = _camera.transform.forward;
+            Vector3 lookRotation = _cameraTransform.forward;
             lookRotation.y = 0;
             LookTowards(lookRotation);
         }
@@ -54,8 +54,8 @@ namespace Stealth
         private Rigidbody _rigidbody;
         private Vector3 _direction;
         private float _height;
-        private Camera _camera;
         private Transform _transform;
+        private Transform _cameraTransform;
     }
 }
 

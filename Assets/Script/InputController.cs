@@ -39,7 +39,7 @@ namespace Stealth {
             return IsAxisActive(Input.GetAxisRaw(axisName));
         }
 
-        private bool IsAxisActive(float amount)
+        public bool IsAxisActive(float amount)
         {
             return Mathf.Abs(amount) > _axisThreshold;
         }
