@@ -22,9 +22,10 @@ namespace Stealth
         private void FixedUpdate()
         {
             _direction.y = _height;
-            _rigidbody.velocity = _direction * Time.fixedDeltaTime  * 100;
-            
-            if(HasMovement())
+            float verticalVelocity = _rigidbody.velocity.y;
+            _rigidbody.velocity = _direction * Time.fixedDeltaTime * 100 + Vector3.up * verticalVelocity;
+
+            if (HasMovement())
             {
                 LookTowardsCamera();
             }
