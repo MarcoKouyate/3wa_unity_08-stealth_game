@@ -18,6 +18,7 @@ namespace Stealth
             _cameraTransform = Camera.main.transform;
             _transform = transform;
         }
+
         private void FixedUpdate()
         {
             _direction.y = _height;

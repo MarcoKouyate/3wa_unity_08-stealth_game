@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Stealth { 
     public class PawnController : MonoBehaviour
     {
-        [SerializeField] private Movement _movement;
+        [SerializeField] private MovementStateMachine _movement;
 
         public void Move(Vector2 direction)
         {
