@@ -12,6 +12,7 @@ namespace Stealth {
         public override void EnterState()
         {
             Machine.Movement.Move(Vector2.zero);
+            Machine.Animation.StartIdle(); 
         }
 
         public override void Move(Vector2 direction) { 
@@ -20,6 +21,11 @@ namespace Stealth {
             {
                 Machine.SwitchTo(_walkState);
             }
+        }
+
+        public override void ExitState()
+        {
+            Machine.Animation.StopIdle();
         }
     }
 }
