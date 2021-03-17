@@ -5,6 +5,7 @@ namespace Stealth {
     public class CharacterAnimationController : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
+        [SerializeField] private float _speedSmoothTime;
 
         #region Idle
         public void StartIdle()
@@ -67,8 +68,16 @@ namespace Stealth {
 
         public void SetMovement(Vector2 direction)
         {
-            _animator.SetFloat(HorizontalMovementId, direction.x);
-            _animator.SetFloat(VerticalMovementId, direction.y);
+            _speedX = SmoothDirection(_speedX, direction.x, ref _dampVelocityX);
+            _speedY = SmoothDirection(_speedY, direction.y, ref _dampVelocityY);
+            _animator.SetFloat(HorizontalMovementId, _speedX);
+            _animator.SetFloat(VerticalMovementId, _speedY);
+        }
+
+        private float SmoothDirection(float currentSpeed, float targetSpeed, ref float dampVelocity)
+        {
+            currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref dampVelocity, _speedSmoothTime);
+            return currentSpeed;
         }
 
         private int IdleId = Animator.StringToHash("Idle");
@@ -78,5 +87,11 @@ namespace Stealth {
         private int IsGroundedId = Animator.StringToHash("IsGrounded");
         private int HorizontalMovementId = Animator.StringToHash("MovementX");
         private int VerticalMovementId = Animator.StringToHash("MovementY");
+
+        private float _speedX;
+        private float _speedY;
+
+        private float _dampVelocityX;
+        private float _dampVelocityY;
     }
 }
